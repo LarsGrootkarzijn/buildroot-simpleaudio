@@ -1,0 +1,18 @@
+Package: libasound2-data
+Source: alsa-lib
+Version: 1.1.8-1
+Architecture: all
+Maintainer: Debian ALSA Maintainers <pkg-alsa-devel@lists.alioth.debian.org>
+Installed-Size: 646
+Suggests: alsa-utils
+Breaks: libasound2 (<< 1.1.8-1)
+Replaces: libasound2 (<< 1.1.8-1)
+Section: libs
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://www.alsa-project.org/
+Description: Configuration files and profiles for ALSA drivers
+ This package contains configuration files for ALSA drivers and UCM
+ profiles for use with alsaucm.
+ .
+ ALSA is the Advanced Linux Sound Architecture.

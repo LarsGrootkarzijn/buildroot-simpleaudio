@@ -1,0 +1,4 @@
+<map id="snd_tplg_link_template" name="snd_tplg_link_template">
+<area shape="rect" id="node2" href="$structsnd__tplg__hw__config__template.html" title="Template type to describe a physical link runtime supported hardware config, i.e. hardware audio form..." alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node3" href="$structsnd__tplg__stream__template.html" title="Stream configurations. " alt="" coords="179,13,375,39"/>
+</map>

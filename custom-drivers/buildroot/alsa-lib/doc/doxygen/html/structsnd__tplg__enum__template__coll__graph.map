@@ -1,0 +1,7 @@
+<map id="snd_tplg_enum_template" name="snd_tplg_enum_template">
+<area shape="rect" id="node2" href="$structsnd__tplg__channel__map__template.html" title="Template type for channel mapping. " alt="" coords="15,95,186,136"/>
+<area shape="rect" id="node3" href="$structsnd__tplg__channel__elem.html" title="snd_tplg_channel_elem" alt="" coords="5,5,180,32"/>
+<area shape="rect" id="node4" href="$structsnd__tplg__ctl__template.html" title="Template type for control objects. " alt="" coords="217,102,384,129"/>
+<area shape="rect" id="node5" href="$structsnd__tplg__io__ops__template.html" title="Template type for object operations mapping. " alt="" coords="205,5,397,32"/>
+<area shape="rect" id="node6" href="$structsnd__tplg__tlv__template.html" title="Template type for all TLV objects. " alt="" coords="421,5,588,32"/>
+</map>

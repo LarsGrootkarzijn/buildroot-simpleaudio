@@ -1,0 +1,4 @@
+<map id="snd_tplg_pcm_template" name="snd_tplg_pcm_template">
+<area shape="rect" id="node2" href="$structsnd__tplg__stream__caps__template.html" title="Stream Capabilities. " alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node3" href="$structsnd__tplg__stream__template.html" title="Stream configurations. " alt="" coords="196,13,392,39"/>
+</map>

@@ -1,0 +1,36 @@
+#!/usr/bin/make -f
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		--with-plugindir=/usr/lib/$(DEB_HOST_MULTIARCH)/alsa-lib \
+		--enable-mixer-pymods \
+		--disable-silent-rules \
+		--disable-static
+
+override_dh_auto_build-indep:
+	dh_auto_build
+	$(MAKE) doc
+
+override_dh_auto_install-indep:
+	dh_auto_install
+	$(MAKE) -C doc install
+
+override_dh_installdocs:
+	dh_installdocs -X.md5 -Xall_a.js -Xall_f.js -Xall_14.js -Xall_15.js
+
+override_dh_makeshlibs:
+	dh_makeshlibs --exclude=usr/lib/$(DEB_HOST_MULTIARCH)/alsa-lib/smixer -V'libasound2 (>= 1.1.8)' --add-udeb=libasound2-udeb -- -c4
+
+override_dh_install:
+	find debian/tmp -name '*.la' -delete
+	dh_install
+
+override_dh_missing:
+	dh_missing --fail-missing

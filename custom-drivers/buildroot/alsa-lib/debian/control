@@ -1,0 +1,92 @@
+Source: alsa-lib
+Section: libs
+Priority: optional
+Maintainer: Debian ALSA Maintainers <pkg-alsa-devel@lists.alioth.debian.org>
+Uploaders: Jordi Mallach <jordi@debian.org>,
+           Elimar Riesebieter <riesebie@lxtec.de>,
+           Luke Yelavich <themuso@ubuntu.com>
+Build-Depends: debhelper (>= 11), python3-dev
+Build-Depends-Indep: doxygen, graphviz
+Standards-Version: 4.3.0
+Homepage: https://www.alsa-project.org/
+Vcs-Git: https://salsa.debian.org/alsa-team/alsa-lib.git
+Vcs-Browser: https://salsa.debian.org/alsa-team/alsa-lib
+Rules-Requires-Root: no
+
+Package: libasound2
+Architecture: linux-any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: libasound2-data (>= ${source:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Suggests: libasound2-plugins (>= 1.0.24)
+Breaks: bluez-alsa (<= 4.94-2),
+        libasound2-plugin-equal (<= 0.6-1),
+        libasound2-plugins (<< 1.0.24)
+Description: shared library for ALSA applications
+ This package contains the ALSA library and its standard plugins, as well
+ as the required configuration files.
+ .
+ ALSA is the Advanced Linux Sound Architecture.
+
+Package: libasound2-dev
+Architecture: linux-any
+Section: libdevel
+Multi-Arch: same
+Provides: libasound-dev
+Depends: libasound2 (= ${binary:Version}), ${misc:Depends}
+Suggests: libasound2-doc
+Description: shared library for ALSA applications -- development files
+ This package contains files required for developing software
+ that makes use of libasound2, the ALSA library.
+ .
+ ALSA is the Advanced Linux Sound Architecture.
+
+Package: libasound2-data
+Architecture: all
+Depends: ${misc:Depends}
+Suggests: alsa-utils
+Breaks: libasound2 (<< ${source:Version})
+Replaces: libasound2 (<< ${source:Version})
+Multi-Arch: foreign
+Description: Configuration files and profiles for ALSA drivers
+ This package contains configuration files for ALSA drivers and UCM
+ profiles for use with alsaucm.
+ .
+ ALSA is the Advanced Linux Sound Architecture.
+
+Package: libasound2-udeb
+Section: debian-installer
+Architecture: linux-any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Package-Type: udeb
+Description: shared library for ALSA applications (udeb)
+ This package contains the ALSA library for use in the Debian Installer.
+ .
+ ALSA is the Advanced Linux Sound Architecture.
+
+Package: libasound2-doc
+Architecture: all
+Section: doc
+Depends: libjs-jquery, ${misc:Depends}
+Suggests: libasound2-dev
+Description: documentation for user-space ALSA application programming
+ This package contains the HTML documentation for the ALSA library, which
+ describes the development API for user-space applications that want to
+ use ALSA.
+ .
+ ALSA is the Advanced Linux Sound Architecture.
+
+Package: libasound2-plugin-smixer
+Architecture: linux-any
+Depends: libasound2 (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Breaks: libasound2 (<< 1.1.3-2)
+Replaces: libasound2 (<< 1.1.3-2)
+Description: smixer plugin for ALSA library
+ This package contains the smixer (Simple Mixer) interface for the ALSA
+ library.
+ .
+ ALSA is the Advanced Linux Sound Architecture.

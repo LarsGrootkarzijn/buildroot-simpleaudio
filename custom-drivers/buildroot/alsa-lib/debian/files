@@ -1,0 +1,9 @@
+alsa-lib_1.1.8-1_armhf.buildinfo libs optional
+libasound2-data_1.1.8-1_all.deb libs optional
+libasound2-dbgsym_1.1.8-1_armhf.deb debug optional automatic=yes
+libasound2-dev_1.1.8-1_armhf.deb libdevel optional
+libasound2-doc_1.1.8-1_all.deb doc optional
+libasound2-plugin-smixer-dbgsym_1.1.8-1_armhf.deb debug optional automatic=yes
+libasound2-plugin-smixer_1.1.8-1_armhf.deb libs optional
+libasound2-udeb_1.1.8-1_armhf.udeb debian-installer optional
+libasound2_1.1.8-1_armhf.deb libs optional

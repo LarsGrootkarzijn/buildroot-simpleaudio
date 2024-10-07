@@ -1,0 +1,51 @@
+From 54ca7a7951a4ab5003e6bfb233fb8dfa6da636a0 Mon Sep 17 00:00:00 2001
+From: Elimar Riesebieter <riesebie@lxtec.de>
+Date: Wed, 11 Jan 2017 16:26:59 +0100
+Subject: [PATCH] Add a configuration for tegra-alc5632 based cards.
+
+---
+ src/conf/cards/Makefile.am        |  1 +
+ src/conf/cards/tegra-alc5632.conf | 23 +++++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
+ create mode 100644 src/conf/cards/tegra-alc5632.conf
+
+Index: alsa-lib/src/conf/cards/Makefile.am
+===================================================================
+--- alsa-lib.orig/src/conf/cards/Makefile.am
++++ alsa-lib/src/conf/cards/Makefile.am
+@@ -48,6 +48,7 @@ cfg_files = aliases.conf \
+ 	RME9652.conf \
+ 	SI7018.conf \
+ 	SB-XFi.conf \
++	tegra-alc5632.conf \
+ 	TRID4DWAVENX.conf \
+ 	USB-Audio.conf \
+ 	YMF744.conf \
+Index: alsa-lib/src/conf/cards/tegra-alc5632.conf
+===================================================================
+--- /dev/null
++++ alsa-lib/src/conf/cards/tegra-alc5632.conf
+@@ -0,0 +1,23 @@
++# default with dmix/dsnoop
++tegra-alc5632.pcm.default {
++       @args [ CARD ]
++       @args.CARD {
++               type string
++       }
++       type asym
++       playback.pcm {
++               type plug
++               slave.pcm {
++                       @func concat
++                       strings [ "dmix:CARD=" $CARD ",RATE=44100" ]
++               }
++       }
++       capture.pcm {
++               type plug
++               slave.pcm {
++                       @func concat
++                       strings [ "dsnoop:CARD=" $CARD ",RATE=44100" ]
++               }
++       }
++}
++

@@ -1,0 +1,12 @@
+<map id="MIDI Sequencer" name="MIDI Sequencer">
+<area shape="rect" id="node1" href="$group___seq_event.html" title="Sequencer Event API" alt="" coords="201,5,357,32"/>
+<area shape="rect" id="node2" href="$group___seq_ev_type.html" title="Sequencer Event Type\l Checks" alt="" coords="196,57,361,98"/>
+<area shape="rect" id="node3" href="$group___seq_client.html" title="Sequencer Client Interface" alt="" coords="181,123,376,149"/>
+<area shape="rect" id="node5" href="$group___seq_middle.html" title="Sequencer Middle Level\l Interface" alt="" coords="191,174,367,215"/>
+<area shape="rect" id="node6" href="$group___m_i_d_i___event.html" title="Sequencer event \&lt;&#45;\&gt;\l MIDI byte stream coder" alt="" coords="189,239,368,281"/>
+<area shape="rect" id="node7" href="$group___seq_port.html" title="Sequencer Port Interface" alt="" coords="187,305,370,332"/>
+<area shape="rect" id="node8" href="$group___seq_subscribe.html" title="Sequencer Port Subscription" alt="" coords="177,356,381,383"/>
+<area shape="rect" id="node9" href="$group___seq_queue.html" title="Sequencer Queue Interface" alt="" coords="179,407,378,433"/>
+<area shape="rect" id="node10" href="$group___seq_misc.html" title="Sequencer Miscellaneous" alt="" coords="185,457,372,484"/>
+<area shape="rect" id="node11" href="$group___seq_events.html" title="Sequencer Event Definitions" alt="" coords="176,508,381,535"/>
+</map>

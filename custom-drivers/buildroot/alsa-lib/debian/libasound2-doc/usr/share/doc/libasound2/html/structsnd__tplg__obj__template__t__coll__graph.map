@@ -1,0 +1,19 @@
+<map id="snd_tplg_obj_template_t" name="snd_tplg_obj_template_t">
+<area shape="rect" id="node2" href="$structsnd__tplg__pcm__template.html" title="Template type for PCM (FE DAI &amp; DAI links). " alt="" coords="623,76,801,103"/>
+<area shape="rect" id="node3" href="$structsnd__tplg__stream__caps__template.html" title="Stream Capabilities. " alt="" coords="316,17,483,58"/>
+<area shape="rect" id="node10" href="$structsnd__tplg__dai__template.html" title="Template type for physical DAI. It can be used to configure backend DAIs for DPCM. " alt="" coords="627,5,797,32"/>
+<area shape="rect" id="node4" href="$structsnd__tplg__stream__template.html" title="Stream configurations. " alt="" coords="301,84,497,111"/>
+<area shape="rect" id="node17" href="$structsnd__tplg__link__template.html" title="Template type for physical DAI Links. " alt="" coords="625,167,799,193"/>
+<area shape="rect" id="node5" href="$structsnd__tplg__widget__template.html" title="Template type for DAPM widget objects. " alt="" coords="615,285,809,312"/>
+<area shape="rect" id="node6" href="$structsnd__tplg__ctl__template.html" title="Template type for control objects. " alt="" coords="316,291,483,317"/>
+<area shape="rect" id="node9" href="$structsnd__tplg__bytes__template.html" title="Template type for TLV Scale objects. " alt="" coords="619,235,805,261"/>
+<area shape="rect" id="node13" href="$structsnd__tplg__enum__template.html" title="Template type for enumerated control objects. " alt="" coords="619,387,805,413"/>
+<area shape="rect" id="node16" href="$structsnd__tplg__mixer__template.html" title="Template type for mixer control objects. " alt="" coords="618,336,806,363"/>
+<area shape="rect" id="node7" href="$structsnd__tplg__io__ops__template.html" title="Template type for object operations mapping. " alt="" coords="5,225,197,252"/>
+<area shape="rect" id="node8" href="$structsnd__tplg__tlv__template.html" title="Template type for all TLV objects. " alt="" coords="18,291,185,317"/>
+<area shape="rect" id="node11" href="$structsnd__tplg__graph__template.html" title="Template type for array of DAPM graph elements. " alt="" coords="619,477,805,504"/>
+<area shape="rect" id="node12" href="$structsnd__tplg__graph__elem.html" title="Template type for single DAPM graph element. " alt="" coords="319,517,480,544"/>
+<area shape="rect" id="node14" href="$structsnd__tplg__channel__map__template.html" title="Template type for channel mapping. " alt="" coords="314,435,485,477"/>
+<area shape="rect" id="node15" href="$structsnd__tplg__channel__elem.html" title="snd_tplg_channel_elem" alt="" coords="14,443,189,469"/>
+<area shape="rect" id="node18" href="$structsnd__tplg__hw__config__template.html" title="Template type to describe a physical link runtime supported hardware config, i.e. hardware audio form..." alt="" coords="325,143,474,185"/>
+</map>

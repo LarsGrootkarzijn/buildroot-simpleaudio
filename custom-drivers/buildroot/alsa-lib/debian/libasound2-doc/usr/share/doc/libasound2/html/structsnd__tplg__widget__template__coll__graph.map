@@ -1,0 +1,5 @@
+<map id="snd_tplg_widget_template" name="snd_tplg_widget_template">
+<area shape="rect" id="node2" href="$structsnd__tplg__ctl__template.html" title="Template type for control objects. " alt="" coords="119,95,286,121"/>
+<area shape="rect" id="node3" href="$structsnd__tplg__io__ops__template.html" title="Template type for object operations mapping. " alt="" coords="5,5,197,32"/>
+<area shape="rect" id="node4" href="$structsnd__tplg__tlv__template.html" title="Template type for all TLV objects. " alt="" coords="222,5,389,32"/>
+</map>
