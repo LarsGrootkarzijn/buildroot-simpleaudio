@@ -4,11 +4,15 @@
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
- */
+*/
+
 /dts-v1/;
 
-#include "am33xx.dtsi"
-#include "am335x-bone-common.dtsi"
+//#//#include </home/lars/Desktop/buildroot-simpleaudio/device-trees/kernel/am33xx.dtsi>
+//#include </home/lars/Desktop/buildroot-simpleaudio/device-trees/kernel/am335x-bone-common.dtsi>
+
+#include <am33xx.dtsi>
+#include <am335x-bone-common.dtsi>
 
 / {
 	model = "Lars Board";

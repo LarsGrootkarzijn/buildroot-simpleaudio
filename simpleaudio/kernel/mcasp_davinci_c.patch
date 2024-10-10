@@ -1,19 +1,15 @@
 --- ./sound/soc/ti/davinci-mcasp.c
 +++ ./sound/soc/ti/davinci-mcasp.c
-@@ -1,3 +1,4 @@
-+
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-  * ALSA SoC McASP Audio Layer for TI DAVINCI processor
-@@ -27,6 +28,7 @@
- #include <linux/math64.h>
- #include <linux/bitmap.h>
- #include <linux/gpio/driver.h>
+@@ -41,6 +41,8 @@
+ #include "udma-pcm.h"
+ #include "davinci-mcasp.h"
+ 
 +#include <linux/syscalls.h>
- #include <sound/asoundef.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
-@@ -129,6 +131,8 @@
++
+ #define MCASP_MAX_AFIFO_DEPTH	64
+ 
+ #ifdef CONFIG_PM
+@@ -130,6 +132,8 @@
  	struct snd_pcm_hw_constraint_list chconstr[2];
  };
  
@@ -22,7 +18,18 @@
  static inline void mcasp_set_bits(struct davinci_mcasp *mcasp, u32 offset,
  				  u32 val)
  {
-@@ -706,6 +710,20 @@
+@@ -605,7 +609,9 @@
+ 
+ 	mcasp->dai_fmt = fmt;
+ out:
+-	pm_runtime_put(mcasp->dev);
++	
++
++pm_runtime_put(mcasp->dev);
+ 	return ret;
+ }
+ 
+@@ -707,6 +713,20 @@
  	return 0;
  }
  
@@ -43,7 +50,7 @@
  /* All serializers must have equal number of channels */
  static int davinci_mcasp_ch_constraint(struct davinci_mcasp *mcasp, int stream,
  				       int serializers)
-@@ -1699,7 +1717,7 @@
+@@ -1700,7 +1720,7 @@
  		snd_soc_add_dai_controls(dai, davinci_mcasp_iec958_ctls,
  					 ARRAY_SIZE(davinci_mcasp_iec958_ctls));
  	}
