@@ -23,7 +23,7 @@ fi
 echo "Set Simple Audio Buildroot config"
 
 cd ./buildroot/
-make BR2_DEFCONFIG=../configs/buildroot/roomplayer-buildroot-config defconfig
+#make BR2_DEFCONFIG=../configs/buildroot/roomplayer-buildroot-config defconfig
 
 echo "Building, this can tak hours"
-make BR2_EXTERNAL=../hifiberry-os/buildroot
+make BR2_EXTERNAL=../hifiberry-os/buildroot/

@@ -1,0 +1,4 @@
+config BR2_PACKAGE_ALSA_LIB_SIMPLEAUDIO
+	bool "Enable Simpleaudio ALSA-lib"
+	help
+	  This enables a custimized ALSA-lib implemented to work with the Simpleaudio Roomplayer+ soundcard.

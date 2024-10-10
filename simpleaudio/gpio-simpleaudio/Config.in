@@ -1,0 +1,5 @@
+
+config BR2_PACKAGE_GPIO_SIMPLEAUDIO
+	bool "Simpleaudio GPIO tools"
+	help
+	  Adds help tools to read and write the GPIO as in the original software.
