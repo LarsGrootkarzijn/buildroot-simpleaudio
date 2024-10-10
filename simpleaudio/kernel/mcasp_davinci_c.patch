@@ -1,54 +1,54 @@
---- ./output/build/linux-6.6.1/sound/soc/ti/davinci-mcasp.c	2024-10-10 13:03:29.504788955 +0200
-+++ ./davinci-mcasp.c	2024-10-10 13:08:53.290898023 +0200
-@@ -1,4 +1,3 @@
--
+--- ./sound/soc/ti/davinci-mcasp.c
++++ ./sound/soc/ti/davinci-mcasp.c
+@@ -1,3 +1,4 @@
++
  // SPDX-License-Identifier: GPL-2.0-only
  /*
   * ALSA SoC McASP Audio Layer for TI DAVINCI processor
-@@ -28,7 +27,6 @@
+@@ -27,6 +28,7 @@
  #include <linux/math64.h>
  #include <linux/bitmap.h>
  #include <linux/gpio/driver.h>
--#include <linux/syscalls.h>
++#include <linux/syscalls.h>
  #include <sound/asoundef.h>
  #include <sound/core.h>
  #include <sound/pcm.h>
-@@ -131,8 +129,6 @@
+@@ -129,6 +131,8 @@
  	struct snd_pcm_hw_constraint_list chconstr[2];
  };
  
--struct snd_soc_dai *dai_global;
--
++struct snd_soc_dai *dai_global;
++
  static inline void mcasp_set_bits(struct davinci_mcasp *mcasp, u32 offset,
  				  u32 val)
  {
-@@ -710,20 +706,6 @@
+@@ -706,6 +710,20 @@
  	return 0;
  }
  
--SYSCALL_DEFINE1(mcasp, int, clk)
--{
--        printk("Change MCASP clock...\n");
--	if(clk == 1)
--	{
--		davinci_mcasp_set_sysclk(dai_global, 0, 24576000, 0);
--        }
--	else
--	{
--		davinci_mcasp_set_sysclk(dai_global, 0, 11289600, 0);
--	}
--	return 0;
--}
--
++SYSCALL_DEFINE1(mcasp, int, clk)
++{
++        printk("Change MCASP clock...\n");
++	if(clk == 1)
++	{
++		davinci_mcasp_set_sysclk(dai_global, 0, 24576000, 0);
++        }
++	else
++	{
++		davinci_mcasp_set_sysclk(dai_global, 0, 11289600, 0);
++	}
++	return 0;
++}
++
  /* All serializers must have equal number of channels */
  static int davinci_mcasp_ch_constraint(struct davinci_mcasp *mcasp, int stream,
  				       int serializers)
-@@ -1717,7 +1699,7 @@
+@@ -1699,7 +1717,7 @@
  		snd_soc_add_dai_controls(dai, davinci_mcasp_iec958_ctls,
  					 ARRAY_SIZE(davinci_mcasp_iec958_ctls));
  	}
--	dai_global = dai;
-+
+-
++	dai_global = dai;
  	return 0;
  }
  
