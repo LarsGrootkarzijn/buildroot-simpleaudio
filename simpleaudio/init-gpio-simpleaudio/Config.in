@@ -1,4 +1,0 @@
-config BR2_PACKAGE_INIT_GPIO_SIMPLEAUDIO
-	bool "Initilize GPIO at boot"
-	help
-	  Service and script which initilizes the GPIO at boot.
