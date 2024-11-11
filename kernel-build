@@ -1,0 +1,4 @@
+#!/bin/bash
+cd ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/
+export PATH=../../external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/:$PATH
+make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf-
