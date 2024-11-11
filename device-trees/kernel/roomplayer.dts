@@ -1,22 +1,24 @@
+
 /*
  * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
-*/
-
+ */
 /dts-v1/;
 
-//#//#include </home/lars/Desktop/buildroot-simpleaudio/device-trees/kernel/am33xx.dtsi>
-//#include </home/lars/Desktop/buildroot-simpleaudio/device-trees/kernel/am335x-bone-common.dtsi>
-
-#include <am33xx.dtsi>
-#include <am335x-bone-common.dtsi>
+#include "am33xx.dtsi"
+#include "am335x-bone-common.dtsi"
 
 / {
 	model = "Lars Board";
 	compatible = "ti,am33xx";	
+	
+	aliases {
+		mmc0 = &mmc2;
+                mmc1 = &mmc1;
+        };
 };
 
 &am33xx_pinmux {
@@ -81,9 +83,8 @@
 &i2c0 {
 	status = "okay";
 	pinctrl-names = "default";
-        pinctrl-0 = <&i2c0_pins>;
-	#address-cells = <1>;
-	#size-cells = <0>;	
+        pinctrl-0 = <&i2c0_pins>;	
+	clock-frequency = <100000>;
 
 	wm8776: wm8776@1b {
 		#sound-dai-cells = <1>;
@@ -103,6 +104,10 @@
 	pca_2: pca9554@20 {
 		reg = <0x20>;
 		compatible = "nxp,pca9554";
+	};
+
+	baseboard_eeprom: baseboard_eeprom@50 {
+		status = "disabled";
 	};
 };
 
@@ -166,10 +171,6 @@
 	status = "okay";
 };
 
-&gpu {
-	status = "disabled";
-};
-
 &aes {
 	status = "okay";
 };
@@ -211,44 +212,39 @@
 / {
  		sound {
  			compatible = "simple-audio-card";
-			#address-cells = <1>;
-			#size-cells = <0>;
 
-			//simple-audio-card,routing = "cpu0 Capture", "Capture";
+			simple-audio-card,name = "Roomplayer+ Audio Card";			
 
-			simple-audio-card,name = "audio card";			
-			
 			simple-audio-card,dai-link@0 {
-				reg = <0>;
                                 format = "i2s";
-				bitclock-master = <&cpu1>;
-				frame-master = <&cpu1>;
-			
-				cpu1: cpu {
-                                        sound-dai = <&mcasp0>;
-                                        system-clock-frequency = <11289600 24576000>;	
-					//system-clock-direction-out;
-				};
+				bitclock-master = <&cpu0>;
+				frame-master = <&cpu0>;
 
-                                codec {
-                                        sound-dai = <&wm8776 0>;
-				};
-                        };
-			simple-audio-card,dai-link@1 {
-                                reg = <1>;
-				format = "i2s";
-                                bitclock-master = <&cpu0>;
-                                frame-master = <&cpu0>;
- 
 				cpu0: cpu {
                                         sound-dai = <&mcasp0>;
-					system-clock-frequency = <11289600 24576000>;
-					//system-clock-direction-out;
+                                        system-clock-frequency = <24576000>;	
 				};
 
-				codec {
+                                codec0: codec@0 {
+                                        sound-dai = <&wm8776 0>;
+				};
+                      
+
+				codec1: codec@1 {
 					sound-dai = <&wm8776 1>;
 				};
-                        };
-		};
+
+			};
+		};				
+};
+
+
+&pruss_tm {
+	status = "disabled";
+};
+
+&davinci_mdio_sw {
+        ethphy0: ethernet-phy@0 {
+                reg = <1>;
+        };
 };
