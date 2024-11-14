@@ -1,6 +1,5 @@
 #!/bin/bash
 cd ./buildroot-simpleaudio
-source ./secrets
 
 # Clone Simple Audio HifiberryOS external configuration only if the folder doesn't exist
 if [ ! -d "./hifiberry-os-simpleaudio" ]; then
@@ -37,13 +36,25 @@ if [ ! -d "./ti-sdk" ]; then
 	cd ..
 fi
 
+mkdir ./overlay/usr/lib
+
 echo "Set Simple Audio Kernel config"
 cp ./configs/kernel/.config ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/
+if [ $? -ne 0 ]; then
+  echo "Failed to copy kernel config."
+  exit 1
+fi
 
 echo "Placing Roomplayer DTS in DTS boot folder."
 cp ./device-trees/kernel/roomplayer.dts ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/arch/arm/boot/dts/
+if [ $? -ne 0 ]; then
+  echo "Failed to copy roomplayer.dts to the boot folder."
+  exit 1
+fi
 
 echo "Set Simple Audio Buildroot config"
-
 cp ./configs/buildroot/.config ./buildroot/
-
+if [ $? -ne 0 ]; then
+  echo "Failed to copy Buildroot config."
+  exit 1
+fi
