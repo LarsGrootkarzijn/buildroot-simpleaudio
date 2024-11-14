@@ -1,19 +1,55 @@
 #!/bin/bash
+
+
 cd ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/
+if [ $? -ne 0 ]; then
+  echo "Failed to change directory, did you run setup.sh?"
+  exit 1
+fi
+
 export PATH=../../external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/bin:$PATH
+if [ $? -ne 0 ]; then
+  echo "Failed to set PATH."
+  exit 1
+fi
 
 echo "Compiling Kernel"
 make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- uImage LOADADDR=0x80008000
+if [ $? -ne 0 ]; then
+  echo "Kernel compilation failed."
+  exit 1
+fi
 
 echo "Compiling modules"
 make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- modules
+if [ $? -ne 0 ]; then
+  echo "Modules compilation failed."
+  exit 1
+fi
 
 echo "Creating Roomplayer DTB from DTS"
 make DTC_FLAGS=-@ ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- roomplayer.dtb
+if [ $? -ne 0 ]; then
+  echo "DTB creation failed."
+  exit 1
+fi
 
 echo "Copying DTB and Images to output directory"
 cp ./arch/arm/boot/*Image ../../../output
+if [ $? -ne 0 ]; then
+  echo "Failed to copy kernel images to the output directory."
+  exit 1
+fi
+
 cp ./arch/arm/boot/dts/roomplayer.dtb ../../../output
+if [ $? -ne 0 ]; then
+  echo "Failed to copy roomplayer.dtb to the output directory."
+  exit 1
+fi
 
 echo "Installing modules to overlay directory."
 make ARCH=arm INSTALL_MOD_PATH=../../../overlay/usr modules_install
+if [ $? -ne 0 ]; then
+  echo "Failed to install kernel modules."
+  exit 1
+fi

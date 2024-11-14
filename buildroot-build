@@ -1,10 +1,27 @@
 #!/bin/bash
 
-source secrets
-
-echo "Spotify ClientID is $SPOTIFY_CLIENT_ID"
+if [ -f "./secrets" ]; then
+  	source ./secrets
+	echo "Spotify ClientID is $SPOTIFY_CLIENT_ID"
+else
+	echo "No secrets file found, create it by filling in secrets.template and changing name to secrets."
 
 cd ./buildroot
-make BR2_EXTERNAL=../hifiberry-os/buildroot
+if [ $? -ne 0 ]; then
+  echo "Failed to change directory to ./buildroot, did you run setup.sh?"
+  exit 1
+fi
 
+echo "Building rootfs"
+make BR2_EXTERNAL=../hifiberry-os/buildroot
+if [ $? -ne 0 ]; then
+  echo "Make command failed."
+  exit 1
+fi
+
+echo "Copying rootfs.tar to output file."
 cp ./output/images/rootfs.tar ../output
+if [ $? -ne 0 ]; then
+  echo "Failed to copy rootfs.tar."
+  exit 1
+fi

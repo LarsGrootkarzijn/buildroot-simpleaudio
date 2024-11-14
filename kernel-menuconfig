@@ -1,4 +1,18 @@
 #!/bin/bash
 cd ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/
-export PATH=../../external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/:$PATH
+if [ $? -ne 0 ]; then
+  echo "Failed to change directory, did you run setup.sh?"
+  exit 1
+fi
+
+export PATH=../../external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/bin:$PATH
+if [ $? -ne 0 ]; then
+  echo "Failed to set the PATH for the cross-toolchain."
+  exit 1
+fi
+
 make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- menuconfig
+if [ $? -ne 0 ]; then
+  echo "Make menuconfig failed."
+  exit 1
+fi
