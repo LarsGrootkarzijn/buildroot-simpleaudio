@@ -1,3 +1,10 @@
 #!/bin/bash
+
+source secrets
+
+echo "Spotify ClientID is $SPOTIFY_CLIENT_ID"
+
 cd ./buildroot
-make BR2_EXTERNAL=../hifiberry-os/buildroo
+make BR2_EXTERNAL=../hifiberry-os/buildroot
+
+cp ./output/images/rootfs.tar ../output

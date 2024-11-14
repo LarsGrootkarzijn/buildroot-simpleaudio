@@ -1,4 +1,19 @@
 #!/bin/bash
 cd ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/
-export PATH=../../external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/:$PATH
-make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf-
+export PATH=../../external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/bin:$PATH
+
+echo "Compiling Kernel"
+make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- uImage LOADADDR=0x80008000
+
+echo "Compiling modules"
+make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- modules
+
+echo "Creating Roomplayer DTB from DTS"
+make DTC_FLAGS=-@ ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- roomplayer.dtb
+
+echo "Copying DTB and Images to output directory"
+cp ./arch/arm/boot/*Image ../../../output
+cp ./arch/arm/boot/dts/roomplayer.dtb ../../../output
+
+echo "Installing modules to overlay directory."
+make ARCH=arm INSTALL_MOD_PATH=../../../overlay/usr modules_install
