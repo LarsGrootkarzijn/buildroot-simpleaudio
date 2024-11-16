@@ -53,3 +53,6 @@ if [ $? -ne 0 ]; then
   echo "Failed to install kernel modules."
   exit 1
 fi
+
+cd ../../../output
+cat ./roomplayer.dtb >> ./uImage

@@ -1,4 +1,0 @@
-debian/tmp/usr/include
-debian/tmp/usr/lib/arm-linux-gnueabihf/libasound.so
-debian/tmp/usr/lib/arm-linux-gnueabihf/pkgconfig
-debian/tmp/usr/share/aclocal

@@ -94,15 +94,25 @@
 		
 	pca_0: pca9554@23 {
 		reg = <0x23>;
+		#gpio-cells = <2>;
+		ngpios = <8>;
+		gpio-controller;
 		compatible = "nxp,pca9554";
+		gpio-line-names = "gpio491", "gpio492", "gpio493", "gpio494", "gpio495", "gpio496", "gpio497", "gpio498";
 	};
 
 	pca_1: pca9554@22 {
 		reg = <0x22>;
+		ngpios = <8>;
+		#gpio-cells = <2>;
+		gpio-controller;
 		compatible = "nxp,pca9554";
 	};
 	pca_2: pca9554@20 {
 		reg = <0x20>;
+		ngpios = <8>;
+		#gpio-cells = <2>;
+		gpio-controller;
 		compatible = "nxp,pca9554";
 	};
 

@@ -1,4 +1,0 @@
-<map id="snd_seq_ev_queue_control_t" name="snd_seq_ev_queue_control_t">
-<area shape="rect" id="node2" href="$unionsnd__seq__timestamp__t.html" title="snd_seq_timestamp_t" alt="" coords="5,5,171,32"/>
-<area shape="rect" id="node3" href="$structsnd__seq__queue__skew__t.html" title="snd_seq_queue_skew_t" alt="" coords="195,5,370,32"/>
-</map>

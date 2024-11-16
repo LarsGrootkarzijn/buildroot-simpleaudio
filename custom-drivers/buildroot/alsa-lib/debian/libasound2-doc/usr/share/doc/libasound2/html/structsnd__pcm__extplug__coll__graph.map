@@ -1,5 +1,0 @@
-<map id="snd_pcm_extplug_t" name="snd_pcm_extplug_t">
-<area shape="rect" id="node2" href="$structsnd__pcm__extplug__callback.html" title="snd_pcm_extplug_callback_t" alt="" coords="5,184,215,211"/>
-<area shape="rect" id="node3" href="$structsnd__pcm__chmap__t.html" title="snd_pcm_chmap_t" alt="" coords="39,5,181,32"/>
-<area shape="rect" id="node4" href="$structsnd__pcm__chmap__query__t.html" title="snd_pcm_chmap_query_t" alt="" coords="190,95,377,121"/>
-</map>

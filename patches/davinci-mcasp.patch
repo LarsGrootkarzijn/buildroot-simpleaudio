@@ -1,0 +1,94 @@
+diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+index ca5d1bb6a..1de03a288 100644
+--- a/sound/soc/ti/davinci-mcasp.c
++++ b/sound/soc/ti/davinci-mcasp.c
+@@ -41,6 +41,8 @@
+ #include "udma-pcm.h"
+ #include "davinci-mcasp.h"
+ 
++#include <linux/gpio.h> 
++
+ #define MCASP_MAX_AFIFO_DEPTH	64
+ 
+ #ifdef CONFIG_PM
+@@ -1206,6 +1208,46 @@ static snd_pcm_sframes_t davinci_mcasp_delay(
+ 	return fifo_use / substream->runtime->channels;
+ }
+ 
++void set_gpio_output(int gpio, int value)
++{
++    int ret;
++
++    // Request the GPIO
++    ret = gpio_request(gpio, "gpio_output");
++    if (ret) {
++        pr_err("Failed to request GPIO %d, error %d\n", gpio, ret);
++        return;
++    }
++
++    // Set the GPIO direction to output
++    ret = gpio_direction_output(gpio, value);
++    if (ret) {
++        pr_err("Failed to set GPIO %d direction to output, error %d\n", gpio, ret);
++        gpio_free(gpio);  // Free GPIO before returning
++        return;
++    }
++
++    // Set the GPIO value (HIGH = 1, LOW = 0)
++    //gpio_set_value(gpio, value);
++
++    pr_info("GPIO %d set to %s\n", gpio, value ? "HIGH" : "LOW");
++
++    // Free the GPIO after use
++    gpio_free(gpio);
++}
++
++#define SND_11K	11289600
++#define SND_8K	24576000
++#define AUDIO_GPIO_1 491
++#define AUDIO_GPIO_2 492
++
++#define GPIO_LOW  0
++#define GPIO_HIGH 1
++
++#define MODULO_11K 44100
++#define MODULO_8K 16000
++
++#define CLK_ID_SA 0
+ static int davinci_mcasp_hw_params(struct snd_pcm_substream *substream,
+ 					struct snd_pcm_hw_params *params,
+ 					struct snd_soc_dai *cpu_dai)
+@@ -1215,6 +1257,24 @@ static int davinci_mcasp_hw_params(struct snd_pcm_substream *substream,
+ 	int channels = params_channels(params);
+ 	int period_size = params_period_size(params);
+ 	int ret;
++	int rate = params_rate(params);
++
++	if(rate % MODULO_11K == 0)
++	{
++		davinci_mcasp_set_sysclk(cpu_dai, CLK_ID_SA, SND_11K, SND_SOC_CLOCK_IN);
++		printk(KERN_ALERT "Rate to divide 11025hz!\n");
++
++		set_gpio_output(AUDIO_GPIO_1, GPIO_LOW);
++		set_gpio_output(AUDIO_GPIO_2, GPIO_LOW);
++	}
++	else if (rate % MODULO_8K == 0)
++	{
++		davinci_mcasp_set_sysclk(cpu_dai, 0, SND_8K, 0);
++		printk(KERN_ALERT "Rate to divide 8000hz!\n");
++
++		set_gpio_output(AUDIO_GPIO_1, GPIO_HIGH);
++                set_gpio_output(AUDIO_GPIO_2, GPIO_HIGH);
++	}
+ 
+ 	switch (params_format(params)) {
+ 	case SNDRV_PCM_FORMAT_U8:
+@@ -1536,6 +1596,8 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
+ 	if (max_channels < tdm_slots)
+ 		max_channels = tdm_slots;
+ 
++	return 0;
++
+ 	snd_pcm_hw_constraint_minmax(substream->runtime,
+ 				     SNDRV_PCM_HW_PARAM_CHANNELS,
+ 				     0, max_channels);

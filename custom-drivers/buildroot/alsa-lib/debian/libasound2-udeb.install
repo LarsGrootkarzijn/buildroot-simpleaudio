@@ -1,4 +1,0 @@
-usr/lib/*/*.so.*	usr/lib
-usr/share/alsa/alsa.conf
-usr/share/alsa/cards
-usr/share/alsa/pcm

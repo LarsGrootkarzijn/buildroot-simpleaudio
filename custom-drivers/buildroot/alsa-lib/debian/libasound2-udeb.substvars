@@ -1,3 +1,0 @@
-shlibs:Depends=libc6-udeb (>= 2.28)
-misc:Depends=
-misc:Pre-Depends=
