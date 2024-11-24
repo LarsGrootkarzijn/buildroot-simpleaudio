@@ -5,6 +5,7 @@ if [ -f "./secrets" ]; then
 	echo "Spotify ClientID is $SPOTIFY_CLIENT_ID"
 else
 	echo "No secrets file found, create it by filling in secrets.template and changing name to secrets."
+fi
 
 cd ./buildroot
 if [ $? -ne 0 ]; then

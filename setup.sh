@@ -1,5 +1,9 @@
 #!/bin/bash
-cd ./buildroot-simpleaudio
+
+ALPINE_URL=https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/armhf/
+ALPINE_VERSION=alpine-minirootfs-3.20.3-armhf.tar.gz
+
+#cd ./buildroot-simpleaudio
 
 # Clone Simple Audio HifiberryOS external configuration only if the folder doesn't exist
 if [ ! -d "./hifiberry-os-simpleaudio" ]; then
@@ -7,7 +11,7 @@ if [ ! -d "./hifiberry-os-simpleaudio" ]; then
     git clone https://github.com/LarsGrootkarzijn/hifiberry-os-simpleaudio.git
 fi
 
-if [ ! -d "./outpit" ]; then
+if [ ! -d "./output" ]; then
     echo "Create output directory"
     mkdir ./output
 fi
@@ -36,25 +40,30 @@ if [ ! -d "./ti-sdk" ]; then
 	cd ..
 fi
 
-mkdir ./overlay/usr/lib
+if [ ! -d "./initramfs" ]; then
+	echo "Getting initramfs Alpine"
+	mkdir ./initramfs
+	cd ./initramfs
+	wget $ALPINE_URL$ALPINE_VERSION
+	tar -xf ./$ALPINE_VERSION
+	rm ./$ALPINE_VERSION
+	find . -print0 | cpio --null -ov --format=newc | gzip -9 > initramfs.cpio.gz
+fi
 
 echo "Set Simple Audio Kernel config"
-cp ./configs/kernel/.config ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/
+cp ./configs/kernel/.config ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/.config
 if [ $? -ne 0 ]; then
   echo "Failed to copy kernel config."
-  exit 1
 fi
 
 echo "Placing Roomplayer DTS in DTS boot folder."
 cp ./device-trees/kernel/roomplayer.dts ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/arch/arm/boot/dts/
 if [ $? -ne 0 ]; then
   echo "Failed to copy roomplayer.dts to the boot folder."
-  exit 1
 fi
 
 echo "Set Simple Audio Buildroot config"
-cp ./configs/buildroot/.config ./buildroot/
+cp ./configs/buildroot/.config ./buildroot/.config
 if [ $? -ne 0 ]; then
   echo "Failed to copy Buildroot config."
-  exit 1
 fi

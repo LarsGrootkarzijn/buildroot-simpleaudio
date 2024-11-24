@@ -32,6 +32,9 @@ mkfs.ext4 -L "DATA" ${loop_device}p4     # Partition 4 (Remaining space as ext4 
 mkdir -p /mnt/rootfs2
 mount ${loop_device}p2 /mnt/rootfs2
 
+#mkdir -p /mnt/rootfs3
+#mount ${loop_device}p3 /mnt/rootfs3
+
 mkdir -p /mnt/kernel
 mount ${loop_device}p1 /mnt/kernel
 
@@ -39,6 +42,7 @@ mount ${loop_device}p1 /mnt/kernel
 if [[ -f ${ROOTFS_TAR} ]]; then
     # Copy and extract the rootfs.tar into partition 2
     tar -xf ${ROOTFS_TAR} -C /mnt/rootfs2
+    #tar -xf ${ROOTFS_TAR} -C /mnt/rootfs3
 else
     echo "Error: ${ROOTFS_TAR} not found!"
     exit 1
@@ -47,6 +51,10 @@ fi
 if [[ -f ${IMAGE} ]]; then
     # Copy and extract the rootfs.tar into partition 2
     cp ${IMAGE} /mnt/kernel
+    touch /mnt/kernel/rfspart
+    echo "rfspart=2" > /mnt/kernel/rfspart
+    touch /mnt/kernel/bootargs
+    echo "mainbootargs=console=ttyS0,115200n8 drm.debug=7 root=/dev/mmcblk0p\${rfspart} ro rootfstype=ext4 rootwait" > /mnt/kernel/bootargs
 else
     echo "Error: ${IMAGE} not found!"
     exit 1
@@ -54,7 +62,11 @@ fi
 
 # Unmount the partition
 umount /mnt/rootfs2
+#umount /mnt/rootfs3
 umount /mnt/kernel
+
+rm -r /mnt/rootfs*
+rm -r /mnt/kernel
 
 # Unmount the loop device
 losetup -d ${loop_device}

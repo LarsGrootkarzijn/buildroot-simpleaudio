@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+#source ./initramfs-build
 cd ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/
 if [ $? -ne 0 ]; then
   echo "Failed to change directory, did you run setup.sh?"
@@ -48,7 +48,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Installing modules to overlay directory."
-make ARCH=arm INSTALL_MOD_PATH=../../../overlay/usr modules_install
+make ARCH=arm INSTALL_MOD_PATH=../../../overlay/buildroot/usr modules_install
 if [ $? -ne 0 ]; then
   echo "Failed to install kernel modules."
   exit 1

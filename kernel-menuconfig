@@ -16,3 +16,5 @@ if [ $? -ne 0 ]; then
   echo "Make menuconfig failed."
   exit 1
 fi
+
+cp ./.config ../../../configs/kernel/.config
