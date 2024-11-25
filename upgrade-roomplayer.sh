@@ -12,7 +12,7 @@ download_file() {
 LATEST_TAG=$(download_file "https://api.github.com/repos/LarsGrootkarzijn/buildroot-simpleaudio/releases/latest" -)
 LATEST_TAG=$(echo "$LATEST_TAG" | grep '"tag_name":' | cut -d '"' -f 4) || { echo "Failed to fetch the latest release tag."; exit 1; }
  
-UIMAGE_URL="https://github.com/LarsGrootkarzijn/buildroot-simpleaudio/releases/download/${LATEST_TAG}/uImage"
+UIMAGE_URL="https://github.com/LarsGrootkarzijn/buildroot-simpleaudio/releases/download/${LATEST_TAG}/uImage_Install"
  
 echo "Downloading $LATEST_TAG"
  
@@ -33,10 +33,10 @@ echo "Found MMC device: $MMC_DEVICE"
 mount /dev/${MMC_DEVICE}p1 /boot
  
 rm /boot/uImage
-mv ./uImage /boot
+mv ./uImage_Install /boot/uImage
 rm /boot/bootargs
  
-echo "bootargs=console=ttyS0,115200 root=/dev/ram0 rw rdinit=/sbin/init" >> /boot/bootargs
+echo "mainbootargs=console=ttyS0,115200 root=/dev/ram0 rw rdinit=/sbin/init" >> /boot/bootargs
  
 umount /dev/${MMC_DEVICE}p1
 sync
