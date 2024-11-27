@@ -31,7 +31,6 @@ mkfs.ext4 -L "DATA" ${loop_device}p4     # Partition 4 (Remaining space as ext4 
 # Mount partition 2
 mkdir -p /mnt/rootfs2
 mount ${loop_device}p2 /mnt/rootfs2
-
 #mkdir -p /mnt/rootfs3
 #mount ${loop_device}p3 /mnt/rootfs3
 
@@ -42,6 +41,7 @@ mount ${loop_device}p1 /mnt/kernel
 if [[ -f ${ROOTFS_TAR} ]]; then
     # Copy and extract the rootfs.tar into partition 2
     tar -xf ${ROOTFS_TAR} -C /mnt/rootfs2
+    #dd if=${ROOTFS_EXT4} of=${loop_device}p2 bs=256K status=progress
     #tar -xf ${ROOTFS_TAR} -C /mnt/rootfs3
 else
     echo "Error: ${ROOTFS_TAR} not found!"

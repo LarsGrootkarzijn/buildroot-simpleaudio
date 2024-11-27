@@ -1,6 +1,16 @@
 #!/bin/bash
 
-#source ./initramfs-build
+for arg in "$@"; do
+  case $arg in
+    -M|--modules)
+      INSTALL_MODULES=true
+      ;;
+    -I|--install)
+      ADD_INITRAMFS=true
+      ;;
+  esac
+done
+
 cd ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/
 if [ $? -ne 0 ]; then
   echo "Failed to change directory, did you run setup.sh?"
@@ -13,17 +23,22 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "Compiling Kernel"
-make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- uImage LOADADDR=0x80008000
-if [ $? -ne 0 ]; then
-  echo "Kernel compilation failed."
-  exit 1
+CONFIG_FILE="./.config"
+MAKEFILE="./Makefile"
+
+if [ "$ADD_INITRAMFS" = true ]; then
+  echo "Adding initramfs entry to .config."
+  sed -i 's/^CONFIG_INITRAMFS_SOURCE=.*/CONFIG_INITRAMFS_SOURCE="..\/..\/..\/output\/initramfs.cpio.gz"/' "$CONFIG_FILE"
+  sed -i '/^EXTRAVERSION/ s|$|-install|' "$MAKEFILE"
+else
+  sed -i 's/^CONFIG_INITRAMFS_SOURCE=.*/CONFIG_INITRAMFS_SOURCE=""/' "$CONFIG_FILE"
+  sed -i '/^EXTRAVERSION/ s/-install//g' "$MAKEFILE"
 fi
 
-echo "Compiling modules"
-make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- modules
+echo "Compiling Kernel"
+yes "" | make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- uImage LOADADDR=0x80008000
 if [ $? -ne 0 ]; then
-  echo "Modules compilation failed."
+  echo "Kernel compilation failed."
   exit 1
 fi
 
@@ -47,11 +62,23 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "Installing modules to overlay directory."
-make ARCH=arm INSTALL_MOD_PATH=../../../overlay/buildroot/usr modules_install
-if [ $? -ne 0 ]; then
-  echo "Failed to install kernel modules."
-  exit 1
+# If -M or --modules is defined, install the modules
+if [ "$INSTALL_MODULES" = true ]; then
+  echo "Compiling modules"
+  make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- modules
+  if [ $? -ne 0 ]; then
+    echo "Modules compilation failed."
+    exit 1
+  fi
+
+  echo "Installing modules to overlay directory."
+  make ARCH=arm INSTALL_MOD_PATH=../../../overlay/buildroot/usr modules_install
+  if [ $? -ne 0 ]; then
+    echo "Failed to install kernel modules."
+    exit 1
+  fi
+else
+  echo "Modules option not defined. Skipping module installation."
 fi
 
 cd ../../../output
