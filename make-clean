@@ -4,11 +4,12 @@
 if [ -d "./buildroot" ]; then
     echo "Changing directory to buildroot..."
     cd buildroot
-
-    echo "Running make clean in the buildroot directory..."
     make clean
-
-    echo "Clean operation completed in the buildroot directory."
-else
-    echo "The buildroot directory does not exist. No clean operation performed."
 fi
+
+if [ -d "./buildroot" ]; then
+    echo "Changing directory to buildroot..."
+    cd buildroot
+    make clean
+fi
+
