@@ -1,0 +1,12 @@
+#!/bin/bash
+#Needs root permission
+
+source ./initramfs-build
+
+source ./kernel-build -I
+
+source ./kernel-build -M
+
+source ./buildroot-build
+
+source ./create-image

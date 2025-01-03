@@ -71,5 +71,5 @@ rm -r /mnt/kernel
 # Unmount the loop device
 losetup -d ${loop_device}
 
-gzip -k -f $IMAGE_NAME
+gzip -9 -k -f $IMAGE_NAME
 echo "Disk image created, partitions formatted, and root filesystem extracted successfully!"

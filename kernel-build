@@ -1,5 +1,6 @@
 #!/bin/bash
 
+OUT=uImage
 for arg in "$@"; do
   case $arg in
     -M|--modules)
@@ -7,9 +8,12 @@ for arg in "$@"; do
       ;;
     -I|--install)
       ADD_INITRAMFS=true
+      OUT=uImage_Install
       ;;
   esac
 done
+
+echo $OUT
 
 cd ./ti-sdk/board-support/ti-linux-kernel-6.1.46+gitAUTOINC+1d4b5da681-g1d4b5da681/
 if [ $? -ne 0 ]; then
@@ -28,7 +32,9 @@ MAKEFILE="./Makefile"
 
 if [ "$ADD_INITRAMFS" = true ]; then
   echo "Adding initramfs entry to .config."
+  sed -i 's/^CONFIG_INITRAMFS_SOURCE=.*/CONFIG_INITRAMFS_SOURCE=""/' "$CONFIG_FILE"
   sed -i 's/^CONFIG_INITRAMFS_SOURCE=.*/CONFIG_INITRAMFS_SOURCE="..\/..\/..\/output\/initramfs.cpio.gz"/' "$CONFIG_FILE"
+  sed -i '/^EXTRAVERSION/ s/-install//g' "$MAKEFILE"
   sed -i '/^EXTRAVERSION/ s|$|-install|' "$MAKEFILE"
 else
   sed -i 's/^CONFIG_INITRAMFS_SOURCE=.*/CONFIG_INITRAMFS_SOURCE=""/' "$CONFIG_FILE"
@@ -50,7 +56,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Copying DTB and Images to output directory"
-cp ./arch/arm/boot/*Image ../../../output
+cp ./arch/arm/boot/uImage ../../../output/$OUT
 if [ $? -ne 0 ]; then
   echo "Failed to copy kernel images to the output directory."
   exit 1
