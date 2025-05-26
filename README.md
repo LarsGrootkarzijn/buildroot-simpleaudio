@@ -4,13 +4,13 @@ Follow these steps to upgrade your Simple Audio Roomplayer+ to HifiBerryOS with 
 ssh root@YOUR_IP
 
 # 2. Download the upgrade script
-wget https://raw.githubusercontent.com/LarsGrootkarzijn/buildroot-simpleaudio/main/upgrade_roomplayer.sh
+wget https://github.com/LarsGrootkarzijn/buildroot-simpleaudio/releases/download/v0.1.3/upgrade-roomplayer.sh
 
 # 3. Make the script executable
-chmod +x upgrade_roomplayer.sh
+chmod +x upgrade-roomplayer.sh
 
 # 4. Run the upgrade script
-./upgrade_roomplayer.sh
+./upgrade-roomplayer.sh
 
 ⚠️ Important:
 
