@@ -25,7 +25,7 @@ make install CONFIG_PREFIX=../../output/initramfs
 
 
 cd ../../output/initramfs
-cp -r ../../overlay/initramfs/* ./
+cp -r -a -f ../../overlay/initramfs/* ./
 sudo mknod ../../output/initramfs/dev/console c 5 1
 
 find . | cpio -o -H newc | gzip > ../initramfs.cpio.gz

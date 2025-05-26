@@ -1,12 +1,32 @@
 #!/bin/bash
 #Needs root permission
 
+START_PATH=$(pwd)
+
 source ./initramfs-build
+
+cd $START_PATH
 
 source ./kernel-build -I
 
+cd $START_PATH
+
 source ./kernel-build -M
 
-source ./buildroot-build
+cd $START_PATH
 
-source ./create-image
+sudo ./buildroot-build
+
+cd $START_PATH
+
+sudo ./create-image
+
+mkdir -p $START_PATH/output/release
+
+mv $START_PATH/output/uImage $START_PATH/output/release/uImage
+mv $START_PATH/output/uImage_Install $START_PATH/output/release/uImage_Install
+
+mv $START_PATH/output/rootfs.tar.gz $START_PATH/output/release/rootfs.tar.gz
+mv $START_PATH/output/roomplayer.img.gz $START_PATH/output/release/roomplayer.img.gz
+cp $START_PATH/upgrade-roomplayer.sh $START_PATH/output/release/upgrade-roomplayer.sh
+

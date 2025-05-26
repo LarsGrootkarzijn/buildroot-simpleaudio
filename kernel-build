@@ -5,6 +5,7 @@ for arg in "$@"; do
   case $arg in
     -M|--modules)
       INSTALL_MODULES=true
+      ADD_INITRAMFS=false
       ;;
     -I|--install)
       ADD_INITRAMFS=true
@@ -88,4 +89,4 @@ else
 fi
 
 cd ../../../output
-cat ./roomplayer.dtb >> ./uImage
+cat ./roomplayer.dtb >> ./$OUT
